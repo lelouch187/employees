@@ -2,12 +2,18 @@ import EmployeesListItem from "../employees-list-item/employees-list-item";
 
 import './employees-list.css';
 
-const EmployeesList = () => {
+const EmployeesList = ({employees,onChangeIncrease,onChangeLike}) => {
     return (
         <ul className="app-list list-group">
-            <EmployeesListItem/>
-            <EmployeesListItem/>
-            <EmployeesListItem/>
+            {
+                employees.map(employee => {
+                    return <EmployeesListItem
+                    onChangeLike={onChangeLike}
+                    onChangeIncrease={onChangeIncrease} 
+                    key={employee.id}
+                    {...employee} />
+                })
+            }
         </ul>
     )
 }

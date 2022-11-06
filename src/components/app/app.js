@@ -16,19 +16,22 @@ function App() {
   ])
 
   const onChangeIncrease = (id) => {
-    employees.map((item,index) => {
-      if(item.id == id) {
+    employees.map((employee,index) => {
+      if(employee.id == id) {
         setEmployees([...employees],employees[index].increase=!employees[index].increase)
       }
     })
   }
   const onChangeLike = (id) => {
-    employees.map((item,index) => {
-      if(item.id == id) {
+    employees.map((employee,index) => {
+      if(employee.id == id) {
         setEmployees([...employees],employees[index].like=!employees[index].like)
       }
     })
   }
+  const onDeleteEmployee = (id) => {
+    setEmployees(employees.filter(employee => employee.id !== id))
+    }
 
 
   return (
@@ -40,7 +43,8 @@ function App() {
             <AppFilter/>
         </div>
         
-        <EmployeesList onChangeLike={onChangeLike}
+        <EmployeesList onDeleteEmployee={onDeleteEmployee}
+        onChangeLike={onChangeLike}
         onChangeIncrease={onChangeIncrease}
         employees={employees} />
         <EmployeesAddForm/>

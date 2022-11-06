@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import './employees-list-item.css';
 
-const EmployeesListItem = ({name,increase,like,salary,id,onChangeIncrease,onChangeLike}) => {
+const EmployeesListItem = ({name,increase,like,salary,id,onChangeIncrease,onChangeLike,onDeleteEmployee}) => {
     return (
         <li className={classNames("list-group-item d-flex justify-content-between",
         {'increase':increase},{'like':like})}>
@@ -15,8 +15,9 @@ const EmployeesListItem = ({name,increase,like,salary,id,onChangeIncrease,onChan
                     <i className="fas fa-cookie"></i>
                 </button>
 
-                <button type="button"
-                        className="btn-trash btn-sm ">
+                <button onClick = {() => onDeleteEmployee(id)}
+                    type="button"
+                    className="btn-trash btn-sm ">
                     <i className="fas fa-trash"></i>
                 </button>
                 <i className="fas fa-star"></i>

@@ -33,6 +33,12 @@ function App() {
     setEmployees(employees.filter(employee => employee.id !== id))
     }
 
+  const onCreateEmployee = (name, salary) => {
+    debugger
+    setEmployees(employees.concat([{id:Date.now(), name, salary,increase:false, like:false}]))
+    debugger
+  }
+
 
   return (
     <div className="app">
@@ -47,7 +53,7 @@ function App() {
         onChangeLike={onChangeLike}
         onChangeIncrease={onChangeIncrease}
         employees={employees} />
-        <EmployeesAddForm/>
+        <EmployeesAddForm onCreateEmployee={onCreateEmployee}/>
     </div>
   );
 }

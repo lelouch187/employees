@@ -6,7 +6,7 @@ const EmployeesList = ({employees,onChangeIncrease,onChangeLike,onDeleteEmployee
     return (
         <ul className="app-list list-group">
             {
-                employees.map(employee => {
+            employees&&employees.map(employee => {
                     return <EmployeesListItem
                     onDeleteEmployee={onDeleteEmployee}
                     onChangeLike={onChangeLike}

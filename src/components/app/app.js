@@ -9,11 +9,12 @@ import { useState } from 'react';
 
 function App() {
 
-  const [employees,setEmployees] = useState([
-    {id:1, name:'Ivan Mehanikov', salary:3000, increase:false, like:false},
-    {id:2, name:'Zahar Nikitin', salary:2000, increase:false, like:false},
-    {id:3, name:'Alexander Erofeev', salary:1500, increase:false, like:false}
-  ])
+  const initialState = [{id:1, name:'Ivan Mehanikov', salary:3000, increase:false, like:false},
+  {id:2, name:'Zahar Nikitin', salary:2000, increase:false, like:false},
+  {id:3, name:'Alexander Erofeev', salary:1500, increase:false, like:false}]
+
+  const [employees,setEmployees] = useState(initialState)
+  const [sortEmployees,setSortEmployees] = useState(employees)
 
   const onChangeIncrease = (id) => {
     employees.map((employee,index) => {
@@ -34,9 +35,23 @@ function App() {
     }
 
   const onCreateEmployee = (name, salary) => {
-    debugger
     setEmployees(employees.concat([{id:Date.now(), name, salary,increase:false, like:false}]))
-    debugger
+  }
+  const sortIncrease =() => {
+    setSortEmployees(employees.filter(e =>e.increase))
+  }
+  const sortDef = () => {
+    setSortEmployees(employees)
+  }
+  const sortSalary = () => {
+    setSortEmployees(employees.filter(emp => emp.salary>1000))
+  }
+  const onSearchEmp = (value) => {
+    if (value) {
+      setSortEmployees(employees
+        .filter(emp=>emp.name.toLowerCase().includes(value.toLowerCase())))
+    }
+    else setSortEmployees(employees)
   }
 
 
@@ -45,14 +60,16 @@ function App() {
         <AppInfo />
 
         <div className="search-panel">
-            <SearchPanel/>
-            <AppFilter/>
+            <SearchPanel onSearchEmp={onSearchEmp}/>
+            <AppFilter sortSalary={sortSalary}
+            sortDef={sortDef}
+            sortIncrease={sortIncrease}/>
         </div>
         
         <EmployeesList onDeleteEmployee={onDeleteEmployee}
         onChangeLike={onChangeLike}
         onChangeIncrease={onChangeIncrease}
-        employees={employees} />
+        employees={sortEmployees} />
         <EmployeesAddForm onCreateEmployee={onCreateEmployee}/>
     </div>
   );
